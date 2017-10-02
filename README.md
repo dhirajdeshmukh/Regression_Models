@@ -8,11 +8,12 @@ They are particularly interested in the following two questions:
 
 “Is an automatic or manual transmission better for MPG”
 "Quantify the MPG difference between automatic and manual transmissions"
-Review criterialess 
-Peer Grading
 
-The criteria that your classmates will use to evaluate and grade your work are shown below.
-Each criteria is binary: (1 point = criteria met acceptably; 0 points = criteria not met acceptably)
+## Review criterialess 
+## Peer Grading
+
+> The criteria that your classmates will use to evaluate and grade your work are shown below.
+. Each criteria is binary: (1 point = criteria met acceptably; 0 points = criteria not met acceptably)
 
 ## Criteria
 
