@@ -1,4 +1,4 @@
-#Regression Model Course Project
+# Regression Model Course Project
 
 
 You work for Motor Trend, a magazine about the automobile industry. 
@@ -14,7 +14,7 @@ Peer Grading
 The criteria that your classmates will use to evaluate and grade your work are shown below.
 Each criteria is binary: (1 point = criteria met acceptably; 0 points = criteria not met acceptably)
 
-##Criteria
+## Criteria
 
 1. Did the student interpret the coefficients correctly?
 2. Did the student do some exploratory data analyses?
