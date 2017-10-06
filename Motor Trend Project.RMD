@@ -1,0 +1,96 @@
+---
+title: "Motor Trend Project"
+author: "Dhiraj Deshmukh"
+date: "October 3, 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Summary 
+
+This report explores the relationship between manual and automatic transmission on the fuel efficiency. For this analysis, a daatset from Motor Trend US Magazine is used. Following questions are answered through the analysis. 
+
+1. Is an automatic or manual transmission better for MPG?
+2. How different is the MPG between automatic and manual transmissions?
+
+The result obtained for the data shows that the manual transmission presents higher average MPG value than the automatic models.
+ 
+# Load Data
+
+```{r, message=FALSE}
+library(ggplot2) 
+data(mtcars)
+head(mtcars)
+```
+# Exploratory  Analysis
+```{r, message=FALSE} 
+mtcars$cyl  <- factor(mtcars$cyl)
+mtcars$vs   <- factor(mtcars$vs)
+mtcars$gear <- factor(mtcars$gear)
+mtcars$carb <- factor(mtcars$carb)
+mtcars$am   <- factor(mtcars$am,labels=c("Automatic","Manual")) 
+```
+
+Appendix - Plot 1 below shows that Automatic Transmisson has lower MPG than the Manual transmission.   
+# Regression Analysis  
+```{r, message=FALSE} 
+aggregate(mpg~am, data = mtcars, mean) 
+``` 
+### Lets do the t test now 
+```{r, message=FALSE} 
+automatic <- mtcars[mtcars$am == "Automatic",]
+manual <- mtcars[mtcars$am == "Manual",]
+t.test(automatic$mpg, manual$mpg) 
+``` 
+ Since the p-value is 0.001374, this is very significant difference. Lets quantify this now 
+```{r, message=FALSE} 
+val <- lm(mpg ~ am, data = mtcars)  
+summary(val) 
+``` 
+ This shows that automatic mpg is around 17.1 and manual is around 7.2. It also shows that the adjusted R square value is only around .338 and multiple R squared value is around .36, which mean only 36% of the variance can be explained. We will show now the mulivariable regresion model. 
+
+# Multivariable Regression Model 
+```{r, message=FALSE} 
+data(mtcars)
+multivariable_regression <- lm(mpg ~ . ,data=mtcars)
+summary(multivariable_regression) 
+``` 
+## Correlation 
+```{r, message=FALSE} 
+cor(mtcars)[1,] 
+```
+
+This model explains 86.9% of the variance and thus variables cyl, disp and hp shows strong correlation. Use these variables in final regression model
+
+```{r, message=FALSE} 
+final <- lm(mpg ~ wt+hp+disp+cyl+am, data = mtcars)
+summary(final)
+
+``` 
+
+ Thus we can say that the difference between manual and automatic transmission is 1.55 MPG.
+
+# Appendix
+
+#### Plot 1 Boxplot of MPG
+
+```{r, message=FALSE} 
+boxplot(mpg ~ am, data = mtcars, ylab = "MPG", xlab = "Transmission Type") 
+```
+
+#### Plot 2 Pairs Plot 
+```{r, message=FALSE} 
+pairs(mpg ~ ., data = mtcars) 
+``` 
+#### Plot 3 Residual Plot
+
+```{r, message=FALSE}
+par(mfrow = c(2,2))
+plot(final)
+
+```
+So multivariable regression model shows that multiple R square value is higher at .855, where 85.5% of the regression variance can be explained by chosen variables. It concludes that wt and cyl are confouding variables in relation to am and mpg and manual transmission cars on an average have around 1.55 mpg more that that of automatic cars.
